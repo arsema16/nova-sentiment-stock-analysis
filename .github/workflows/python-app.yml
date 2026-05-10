@@ -23,8 +23,15 @@ jobs:
 
     - name: Install TA-Lib C Library
       run: |
-        sudo apt-get update
-        sudo apt-get install -y libta-lib-dev
+        wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+        tar -xzf ta-lib-0.4.0-src.tar.gz
+        cd ta-lib
+        ./configure --prefix=/usr
+        make
+        sudo make install
+        sudo ldconfig
+        # Verify headers are in the right place
+        ls /usr/include/ta-lib/
 
     - name: Install dependencies
       run: |
