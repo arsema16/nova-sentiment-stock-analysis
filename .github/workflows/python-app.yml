@@ -34,15 +34,17 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        # Force a NumPy version compatible with TA-Lib 0.4.24
+        # Force the compatible NumPy version first
         pip install "numpy<2.0.0" 
         
-        # Build TA-Lib with explicit paths
-        export TA_LIBRARY_PATH=/usr/lib
+        # We set these variables so the 'pip install' process can find the C library
         export TA_INCLUDE_PATH=/usr/include
+        export TA_LIBRARY_PATH=/usr/lib
+        
+        # Install TA-Lib alone first to ensure it builds
         pip install TA-Lib==0.4.24
         
-        # Install the rest of your requirements
+        # Finally, install the rest
         pip install -r requirements.txt
 
     - name: Run Tests
