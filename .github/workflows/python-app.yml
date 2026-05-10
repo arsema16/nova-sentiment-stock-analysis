@@ -23,14 +23,33 @@ jobs:
 
     - name: Install TA-Lib C Library
       run: |
-        wget https://github.com/ta-lib/ta-lib/releases/download/v0.6.4/ta-lib_0.6.4_amd64.deb
-        sudo dpkg -i ta-lib_0.6.4_amd64.deb
+        wget http://prdownloads.sourceforge.net/ta-lib/ta-lib-0.4.0-src.tar.gz
+        tar -xzf ta-lib-0.4.0-src.tar.gz
+        cd ta-lib/
+        ./configure --prefix=/usr
+        make
+        sudo make install
+        
+        # THE CRITICAL FIX: Create the directory structure the python wrapper expects
+        sudo mkdir -p /usr/include/ta-lib
+        sudo cp /usr/include/ta_*.h /usr/include/ta-lib/
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
+        
+        # Install numpy first (required for TA-Lib build)
+        pip install "numpy<2.0.0"
+        
+        # Explicitly set paths for the compiler
+        export TA_INCLUDE_PATH=/usr/include
+        export TA_LIBRARY_PATH=/usr/lib
+        
+        # Install TA-Lib using the fix for isolated builds
+        pip install TA-Lib==0.4.24 --no-build-isolation
+        
+        # Finally, install the rest of your requirements
         pip install -r requirements.txt
-
     - name: Run Tests
       run: |
         pytest
