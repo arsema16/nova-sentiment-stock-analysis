@@ -19,24 +19,27 @@
 ### 2. Quantitative Technical Analysis (Task 2)
 * [cite_start]**Indicator Implementation:** Successfully deployed **Simple Moving Averages (SMA)** and the **Relative Strength Index (RSI)** to track AAPL price action[cite: 20, 21, 118].
 * [cite_start]**Market Momentum:** The RSI implementation effectively identifies overbought and oversold regimes, serving as the quantitative backbone for upcoming correlation mapping[cite: 119, 120].
-## Code Structure
+## Project Structure
+
+```text
 nova-sentiment-stock-analysis/
-├── .github/                # CI/CD workflows (GitHub Actions)
+├── .github/                # CI/CD workflows and GitHub Actions
 ├── data/
-│   ├── raw/                # Original datasets (AAPL.csv, raw_analyst_ratings.csv)
-│   └── processed/          # Cleaned data and computed indicators
+│   ├── raw/                # Read-only original datasets (AAPL.csv, ratings.csv)
+│   └── processed/          # Cleaned data and computed technical indicators
 ├── notebooks/
-│   ├── 01_EDA.ipynb        # Task 1: News analysis and visualization
-│   ├── 02_Quant.ipynb      # Task 2: TA-Lib indicator implementation
-│   └── 03_Correlation.ipynb # Task 3: Sentiment-Price mapping
+│   ├── 01_EDA.ipynb        # Task 1: News analysis and text visualizations
+│   ├── 02_Quant.ipynb      # Task 2: TA-Lib implementation & stock analysis
+│   └── 03_Correlation.ipynb # Task 3: Sentiment-Price statistical mapping
 ├── src/
-│   ├── __init__.py
-│   ├── data_preprocessor.py # Scripts for cleaning & normalization
-│   └── indicators.py        # Custom functions for technical analysis
-├── tests/                  # Unit tests for your analysis scripts
-├── .gitignore              # Files to ignore (e.g., venv/, .env, large CSVs)
-├── requirements.txt        # List of dependencies
+│   ├── __init__.py         # Makes src a Python package
+│   ├── data_preprocessor.py # Modular cleaning and normalization logic
+│   └── indicators.py        # Technical analysis functions (SMA, RSI, MACD)
+├── tests/                  # Unit tests for data integrity and logic
+├── .gitignore              # Prevents tracking of venv and large data files
+├── requirements.txt        # Project dependencies and versions
 └── README.md               # Professional project documentation
+```
 ## Next Steps
 * **Complete Indicator Suite:** Finalize implementation of remaining required indicators, including **EMA** and **MACD**.
 * [cite_start]**Statistical Modeling:** Execute **Pearson correlation** calculations between daily sentiment averages and daily stock log-returns[cite: 26].
