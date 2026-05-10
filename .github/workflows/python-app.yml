@@ -30,8 +30,10 @@ jobs:
         make
         sudo make install
         sudo ldconfig
-        # Verify headers are in the right place
-        ls /usr/include/ta-lib/
+        # Headers land in /usr/include/ directly, but the Python wrapper
+        # looks for ta-lib/ta_defs.h, so create the expected subdirectory
+        sudo mkdir -p /usr/include/ta-lib
+        sudo cp /usr/include/ta_*.h /usr/include/ta-lib/
 
     - name: Install dependencies
       run: |
