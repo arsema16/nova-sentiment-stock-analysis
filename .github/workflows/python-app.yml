@@ -30,21 +30,26 @@ jobs:
         ./configure --prefix=/usr
         make
         sudo make install
+        # This is the missing link: 
+        # The wrapper looks for "ta-lib/ta_defs.h", so we ensure /usr/include/ta-lib exists
+        sudo mkdir -p /usr/include/ta-lib
+        sudo cp /usr/include/*.h /usr/include/ta-lib/ 2>/dev/null || true
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        # Force the compatible NumPy version first
-        pip install "numpy<2.0.0" 
+        # 1. Install NumPy 1.x first to avoid the NPY_C_CONTIGUOUS error
+        pip install "numpy<2.0.0"
         
-        # We set these variables so the 'pip install' process can find the C library
+        # 2. Tell the compiler exactly where the TA-Lib files are
         export TA_INCLUDE_PATH=/usr/include
         export TA_LIBRARY_PATH=/usr/lib
         
-        # Install TA-Lib alone first to ensure it builds
-        pip install TA-Lib==0.4.24
+        # 3. Install TA-Lib with build isolation turned OFF 
+        # This forces pip to use the environment we just set up
+        pip install TA-Lib==0.4.24 --no-build-isolation
         
-        # Finally, install the rest
+        # 4. Install the rest of your requirements
         pip install -r requirements.txt
 
     - name: Run Tests
