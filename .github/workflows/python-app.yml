@@ -30,14 +30,22 @@ jobs:
         make
         sudo make install
         sudo ldconfig
-        # Headers land in /usr/include/ directly, but the Python wrapper
-        # looks for ta-lib/ta_defs.h, so create the expected subdirectory
+        echo "--- Verifying install ---"
+        ls /usr/lib/libta_lib* || echo "NOT FOUND in /usr/lib"
+        ls /usr/include/ta_* || echo "NOT FOUND in /usr/include"
         sudo mkdir -p /usr/include/ta-lib
         sudo cp /usr/include/ta_*.h /usr/include/ta-lib/
+        echo "--- Headers in /usr/include/ta-lib ---"
+        ls /usr/include/ta-lib/
 
-    - name: Install dependencies
+    - name: Install TA-Lib Python wrapper
       run: |
         python -m pip install --upgrade pip
+        pip install numpy
+        pip install TA-Lib==0.4.24 --no-build-isolation
+
+    - name: Install remaining dependencies
+      run: |
         pip install -r requirements.txt
 
     - name: Run Tests
