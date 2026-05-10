@@ -1,24 +1,29 @@
 # Financial News Sentiment & Stock Price Correlation Analysis
 
 ## Project Overview
-[cite_start]This project, developed for **Nova Financial Solutions**, aims to bridge the gap between qualitative market narratives and quantitative price action[cite: 6]. [cite_start]By architecting a pipeline that transforms raw financial news into sentiment scores, we establish measurable statistical correlations with stock price movements to develop predictive investment strategies[cite: 7, 8, 9, 10].
+This project, developed for **Nova Financial Solutions**, aims to bridge the gap between qualitative market narratives and quantitative price action. By architecting a pipeline that transforms raw financial news into sentiment scores, we establish measurable statistical correlations with stock price movements to develop predictive investment strategies.
 
 ## Technical Architecture
-* [cite_start]**Data Processing:** Efficient handling and vectorization of a **1.407M article** dataset (FNSPID)[cite: 13, 32].
-* [cite_start]**NLP Engine:** Sentiment quantification using **VADER** (Valence Aware Dictionary and sEntiment Reasoner) to handle short-form financial headlines[cite: 25, 52].
-* [cite_start]**Quantitative Analysis:** High-performance technical indicator computation using the **TA-Lib** C-based library[cite: 20, 31].
+* **Data Processing:** Efficient handling and vectorization of a **1.407M article** dataset (FNSPID).
+* **NLP Engine:** Sentiment quantification using **VADER** (Valence Aware Dictionary and sEntiment Reasoner) to handle short-form financial headlines.
+* **Quantitative Analysis:** High-performance technical indicator computation using the **TA-Lib** C-based library.
+
+## Automation & CI/CD
+To ensure data integrity and code reliability, this repository utilizes GitHub Actions:
+* **Unit Testing (`unittests.yml`):** Automatically triggered on pushes to `task-1`, `task-2`, and `main`. It validates data preprocessing scripts and ensures that NLP bigram extractions are consistent.
+* **Task 1 Alignment:** The workflow specifically validates the EDA pipeline scripts located in `src/` to ensure 1.4M rows are processed without data loss.
 
 ## Key Insights (Interim Phase)
 
 ### 1. News Sentiment Exploratory Data Analysis (Task 1)
-* [cite_start]**Data Consistency:** Analysis of 1.4M headlines revealed a median length of **64 characters**, confirming the data is ideally structured for NLP sentiment scoring[cite: 50, 51, 52].
-* [cite_start]**Temporal Spikes:** Identified critical publication spikes, notably on **2020-03-12**, providing high-density "signal" periods for stress-testing correlation models[cite: 14, 98, 99].
-* [cite_start]**Publisher Influence:** Discovered that a concentrated group of publishers (e.g., Paul Quintaro, Lisa Levin) dominates the news volume, allowing for source-weighted sentiment analysis[cite: 15, 79, 80].
+* **Data Consistency:** Analysis of 1.4M headlines revealed a median length of **64 characters**, confirming the data is ideally structured for NLP sentiment scoring.
+* **Temporal Spikes:** Identified critical publication spikes, notably on **2020-03-12**, providing high-density "signal" periods for stress-testing correlation models.
+* **Publisher Influence:** Discovered that a concentrated group of publishers (e.g., Paul Quintaro, Lisa Levin) dominates the news volume, allowing for source-weighted sentiment analysis.
 * **Topic Distribution:** Preliminary keyword extraction identified primary drivers such as "Earnings," "FDA Approvals," and "Interest Rates," which assist in filtering market noise.
 
 ### 2. Quantitative Technical Analysis (Task 2)
-* [cite_start]**Indicator Implementation:** Successfully deployed **Simple Moving Averages (SMA)** and the **Relative Strength Index (RSI)** to track AAPL price action[cite: 20, 21, 118].
-* [cite_start]**Market Momentum:** The RSI implementation effectively identifies overbought and oversold regimes, serving as the quantitative backbone for upcoming correlation mapping[cite: 119, 120].
+* **Indicator Implementation:** Successfully deployed **Simple Moving Averages (SMA)** and the **Relative Strength Index (RSI)** to track AAPL price action.
+* **Market Momentum:** The RSI implementation effectively identifies overbought and oversold regimes, serving as the quantitative backbone for upcoming correlation mapping.
 ## Project Structure
 
 ```text
@@ -42,15 +47,15 @@ nova-sentiment-stock-analysis/
 ```
 ## Next Steps
 * **Complete Indicator Suite:** Finalize implementation of remaining required indicators, including **EMA** and **MACD**.
-* [cite_start]**Statistical Modeling:** Execute **Pearson correlation** calculations between daily sentiment averages and daily stock log-returns[cite: 26].
+* **Statistical Modeling:** Execute **Pearson correlation** calculations between daily sentiment averages and daily stock log-returns.
 * **Visualization:** Develop **scatter plots** to visualize the relationship between sentiment shifts and price action.
-* [cite_start]**Predictive Analysis:** Conduct **lead-lag analysis** to determine if sentiment shifts act as a leading indicator for price movements[cite: 27].
+* **Predictive Analysis:** Conduct **lead-lag analysis** to determine if sentiment shifts act as a leading indicator for price movements.
 
 ## Installation & Setup
 1.  **Environment:** Python 3.11+
 2.  **Core Dependencies:** `pandas`, `numpy`, `vaderSentiment`, `matplotlib`, `seaborn`, `nltk`, `scikit-learn`.
-3.  [cite_start]**Technical Analysis:** **TA-Lib** (requires specific `.whl` binary for Windows 11 environments)[cite: 30, 31].
+3.  **Technical Analysis:** **TA-Lib** (requires specific `.whl` binary for Windows 11 environments).
 
 ---
-[cite_start]**Analyst:** Arsema Tefera [cite: 3]  
-[cite_start]**Date:** May 10, 2026 [cite: 2]
+**Analyst:** Arsema Tefera  
+**Date:** May 10, 2026 
